@@ -19020,9 +19020,15 @@ module.exports = require('./lib/React');
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-var CommentBox = React.createClass({ displayName: "CommentBox",
+var CommentBox = React.createClass({
+  displayName: "CommentBox",
+
   render: function () {
-    return React.createElement("div", { className: "commentBox" }, "Hello, world! I am a CommentBox.");
+    return React.createElement(
+      "div",
+      { className: "commentBox" },
+      "Dominic is so clever (heart) He is my favourite woohoo pretend there is a big space Panda agrees"
+    );
   }
 });
 
