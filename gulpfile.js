@@ -42,7 +42,7 @@ gulp.task('browserify', function() {
 
 gulp.task('dev', function() {
     gulp.watch('scripts/*.jsx', ['lint', 'browserify']);
-    gulp.watch('css/*.less', ['less']);
+    gulp.watch('less/*.less', ['less']);
 });
 
 // Deploy
