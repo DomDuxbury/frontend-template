@@ -1,5 +1,3 @@
-'use strict';
-
 var gulp = require('gulp');
 var browserify = require('browserify'); // Bundles JS.
 var babelify = require('babelify'); // Transforms React JSX to JS.
@@ -9,6 +7,7 @@ var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var watchify = require('watchify');
 var browserSync = require('browser-sync').create();
+var concat = require('gulp-concat');
 
 // add custom browserify options here
 var customOpts = {
@@ -37,10 +36,12 @@ gulp.task('build', ['browserify', 'less'], function() {
 // CSS
 
 gulp.task('less', function() {
-    return gulp.src('less/*.less')
+    return gulp.src('src/less/*.less')
         .pipe(plumber())
         .pipe(less())
-        .pipe(gulp.dest('build'));
+        .pipe(concat('styles.css'))
+        .pipe(gulp.dest('build'))
+        .pipe(browserSync.stream());
 });
 
 // Javascript
@@ -77,7 +78,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('dev', ['browser-sync', 'build'], function() {
     gulp.watch('src/*/*.jsx', ['build']);
-    //gulp.watch('less/*.less', ['less']);
+    gulp.watch('src/less/*.less', ['less']);
 });
 
 // Deploy
