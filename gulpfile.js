@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var browserify = require('browserify'); // Bundles JS.
 var babelify = require('babelify'); // Transforms React JSX to JS.
@@ -6,12 +8,20 @@ var eslint = require('gulp-eslint');
 var less = require('gulp-less');
 var plumber = require('gulp-plumber');
 var watchify = require('watchify');
-var bundler = watchify(browserify('scripts/main.jsx'));
 var browserSync = require('browser-sync').create();
+
+// add custom browserify options here
+var customOpts = {
+  entries: ['./src/containers/main.jsx'],
+  debug: true,
+  cache: {}, packageCache: {}, fullPaths: true
+};
+
+var bundler = watchify(browserify(customOpts)); 
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src('scripts/*.jsx')
+    return gulp.src('src/*/*.jsx')
         .pipe(plumber())
         .pipe(eslint())
         .pipe(eslint.format())
@@ -37,11 +47,16 @@ gulp.task('less', function() {
 
 gulp.task('browserify', ['lint'], function() {
     var reactBabelify = babelify.configure({
-        presets: ["react"]
+        presets: ["react", "es2015"]
     });
     return bundler.transform(reactBabelify)
         .bundle()
-        .pipe(plumber())
+        .on('error', function(err) {
+            // print the error (can replace with gulp-util)
+            console.log(err);
+            // end this stream
+            this.emit('end');
+        })
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('build'));
 });
@@ -61,7 +76,7 @@ gulp.task('browser-sync', function() {
 // Development Mode
 
 gulp.task('dev', ['browser-sync'], function() {
-    gulp.watch('scripts/*.jsx', ['build']);
+    gulp.watch('src/*/*.jsx', ['build']);
     //gulp.watch('less/*.less', ['less']);
 });
 
