@@ -60,7 +60,7 @@ gulp.task('browser-sync', function() {
 
 // Development Mode
 
-gulp.task('dev', ['browser-sync'] ,function() {
+gulp.task('dev', ['browser-sync'], function() {
     gulp.watch('scripts/*.jsx', ['build']);
     //gulp.watch('less/*.less', ['less']);
 });

@@ -19024,10 +19024,10 @@ var CommentBox = React.createClass({
   displayName: "CommentBox",
 
   render: function () {
-    return React.createElement("div", { className: "commentBox" }, "build7");
+    return React.createElement("div", { className: "commentBox" }, "build19");
   }
 });
 
-ReactDOM.render(React.createElement(CommentBox, null), document.getElementById("example"));
+ReactDOM.render(React.createElement(CommentBox, null), document.getElementById("root"));
 
 },{"react":158,"react-dom":2}]},{},[159]);

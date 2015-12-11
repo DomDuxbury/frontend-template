@@ -5,8 +5,7 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        build7
-
+        build19
       </div>
     );
   }
@@ -14,5 +13,5 @@ var CommentBox = React.createClass({
 
 ReactDOM.render(
   React.createElement(CommentBox, null),
-  document.getElementById("example")
+  document.getElementById("root")
 );
