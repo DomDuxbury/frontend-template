@@ -1,14 +1,17 @@
 var React = require("react");
 
-class ExampleComponent extends React.Component {
-  render() {
+var ExampleComponent = React.createClass({
+  propTypes: {
+    exampleProp: React.PropTypes.string.isRequired
+  },
+  render: function() {
     return (
-      <div className="commentBox">
-        build2000
+      <div className="example">
+        {this.props.exampleProp}
       </div>
     );
   }
-}
+});
 
 module.exports = ExampleComponent;
 

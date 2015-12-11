@@ -12,7 +12,7 @@ var browserSync = require('browser-sync').create();
 
 // add custom browserify options here
 var customOpts = {
-  entries: ['./src/containers/main.jsx'],
+  entries: ['./src/containers/app.jsx'],
   debug: true,
   cache: {}, packageCache: {}, fullPaths: true
 };
@@ -75,7 +75,7 @@ gulp.task('browser-sync', function() {
 
 // Development Mode
 
-gulp.task('dev', ['browser-sync'], function() {
+gulp.task('dev', ['browser-sync', 'build'], function() {
     gulp.watch('src/*/*.jsx', ['build']);
     //gulp.watch('less/*.less', ['less']);
 });
