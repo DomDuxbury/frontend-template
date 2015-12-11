@@ -5,10 +5,8 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        Dominic is so clever (heart) He is my favourite woohoo
-        pretend there is a big space 
+        build7
 
-        Panda agrees
       </div>
     );
   }

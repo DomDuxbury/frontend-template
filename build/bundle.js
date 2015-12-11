@@ -19024,11 +19024,7 @@ var CommentBox = React.createClass({
   displayName: "CommentBox",
 
   render: function () {
-    return React.createElement(
-      "div",
-      { className: "commentBox" },
-      "Dominic is so clever (heart) He is my favourite woohoo pretend there is a big space Panda agrees"
-    );
+    return React.createElement("div", { className: "commentBox" }, "build7");
   }
 });
 
