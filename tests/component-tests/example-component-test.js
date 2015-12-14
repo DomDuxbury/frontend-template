@@ -3,8 +3,8 @@ var ReactTestUtils = require('react-addons-test-utils');
 var ReactDOM = require('react-dom');
 var React = require("react");
 
-describe('Two numbers can be added', function() {
-  it('Adds two numbers', function() {
+describe('An Example Component', function() {
+  it('initialises correctly', function() {
     var testComponent = ReactTestUtils.renderIntoDocument(
       <ExampleComponent exampleProp = "Test"/>
     );

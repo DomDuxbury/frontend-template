@@ -66,7 +66,7 @@ gulp.task('browserify', ['lint'], function() {
 
 gulp.task('build-tests', ['build'], function(done) {
     var testBuildOpts = {
-        entries: ['./tests/src/test-index.js'],
+        entries: ['./tests/test-index.js'],
         debug: true,
         cache: {},
         packageCache: {},
@@ -109,7 +109,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('dev', ['browser-sync', 'build', 'test'], function() {
     gulp.watch('src/*/*.jsx', ['test']);
-    gulp.watch('tests/component-tests-src/*.js', ['test']);
+    gulp.watch('tests/component-tests/*.js', ['test']);
     gulp.watch('src/less/*.less', ['less']);
 });
 
