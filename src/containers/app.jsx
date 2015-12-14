@@ -6,8 +6,8 @@ class Root extends React.Component {
   render() {
     return (
       <div>
-        <ExampleComponent exampleProp = "Test"/>
-        <ExampleComponent exampleProp = "Test2"/>
+        <ExampleComponent exampleProp = "Test1"/>
+        <ExampleComponent exampleProp = "Test1"/>
         <ExampleComponent exampleProp = "Test3"/>
       </div>
     );

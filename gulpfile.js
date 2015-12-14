@@ -8,15 +8,7 @@ var plumber = require('gulp-plumber');
 var watchify = require('watchify');
 var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
-
-// add custom browserify options here
-var customOpts = {
-  entries: ['./src/containers/app.jsx'],
-  debug: true,
-  cache: {}, packageCache: {}, fullPaths: true
-};
-
-var bundler = watchify(browserify(customOpts)); 
+var Server = require('karma').Server;
 
 // Lint Task
 gulp.task('lint', function() {
@@ -47,6 +39,14 @@ gulp.task('less', function() {
 // Javascript
 
 gulp.task('browserify', ['lint'], function() {
+    var buildOpts = {
+        entries: ['./src/containers/app.jsx'],
+        debug: true,
+        cache: {},
+        packageCache: {},
+        fullPaths: true
+    };
+    var bundler = watchify(browserify(buildOpts));
     var reactBabelify = babelify.configure({
         presets: ["react", "es2015"]
     });
@@ -64,6 +64,37 @@ gulp.task('browserify', ['lint'], function() {
 
 // Test
 
+gulp.task('build-tests', ['build'], function(done) {
+    var testBuildOpts = {
+        entries: ['./tests/src/test-index.js'],
+        debug: true,
+        cache: {},
+        packageCache: {},
+        fullPaths: true
+    }
+    var testBundler = watchify(browserify(testBuildOpts));
+    var reactBabelify = babelify.configure({
+        presets: ["react", "es2015"]
+    });
+    return testBundler.transform(reactBabelify)
+        .bundle()
+        .on('error', function(err) {
+            // print the error (can replace with gulp-util)
+            console.log(err);
+            // end this stream
+            this.emit('end');
+        })
+        .pipe(source('test-bundle.js'))
+        .pipe(gulp.dest('tests/build'));
+});
+
+gulp.task('test', ['build-tests'], function(done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
 // Sync Browser
 
 gulp.task('browser-sync', function() {
@@ -76,8 +107,9 @@ gulp.task('browser-sync', function() {
 
 // Development Mode
 
-gulp.task('dev', ['browser-sync', 'build'], function() {
-    gulp.watch('src/*/*.jsx', ['build']);
+gulp.task('dev', ['browser-sync', 'build', 'test'], function() {
+    gulp.watch('src/*/*.jsx', ['test']);
+    gulp.watch('tests/src/*.js', ['test']);
     gulp.watch('src/less/*.less', ['less']);
 });
 
