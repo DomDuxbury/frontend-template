@@ -109,7 +109,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('dev', ['browser-sync', 'build', 'test'], function() {
     gulp.watch('src/*/*.jsx', ['test']);
-    gulp.watch('tests/src/*.js', ['test']);
+    gulp.watch('tests/component-tests-src/*.js', ['test']);
     gulp.watch('src/less/*.less', ['less']);
 });
 
